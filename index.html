@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confession Wall - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: url('https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/04/Riddler-Batman-SM.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem;
+      transform: translate(-0.5cm, 2cm);
+      text-align: center;
+    }
+    input {
+      padding: 0.75rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin: 0.5rem 0;
+      width: 100%;
+    }
+    button.submit-btn {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    h2 {
+      color: #ff4b2b;
+      margin-bottom: 1rem;
+    }
+    .message {
+      color: green;
+      margin-top: 1rem;
+    }
+    .link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .link a {
+      color: #ff4b2b;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="title">Confession Wall - Login</h2>
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <input type="text" id="login-nickname" placeholder="Nickname" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button type="submit" class="submit-btn">Login</button>
+      <div id="login-message" class="message"></div>
+      <div class="link" id="register-link" style="display: block;">Not registered? <a href="#" onclick="showRegister()">Register here</a></div>
+    </form>
+
+    <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
+      <input type="text" id="reg-nickname" placeholder="Choose a Nickname" required />
+      <input type="password" id="reg-password" placeholder="Choose a Password" required />
+      <button type="submit" class="submit-btn">Register</button>
+      <div class="link">Already registered? <a href="#" onclick="showLogin()">Login here</a></div>
+      <div id="reg-message" class="message"></div>
+    </form>
+  </div>
+
+  <script>
+    let users = {};
+
+    function handleRegister(event) {
+      event.preventDefault();
+      const nickname = document.getElementById('reg-nickname').value.trim();
+      const password = document.getElementById('reg-password').value.trim();
+
+      if (users[nickname]) {
+        document.getElementById('reg-message').textContent = 'Nickname already exists. Please choose another.';
+        return;
+      }
+      users[nickname] = password;
+      document.getElementById('reg-message').textContent = 'Registered successfully! You can now log in.';
+      document.getElementById('reg-nickname').value = '';
+      document.getElementById('reg-password').value = '';
+    }
+    function showLogin() {
+      document.getElementById('register-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('title').textContent = 'Confession Wall - Login';
+    }
+    function showRegister() {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('register-form').style.display = 'block';
+      document.getElementById('title').textContent = 'Confession Wall - Register';
+    }
+    function handleLogin(event) {
+      event.preventDefault();
+      const nickname = document.getElementById('login-nickname').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      if (!users[nickname]) {
+        document.getElementById('login-message').textContent = 'Nickname not found. Please register first.';
+        document.getElementById('register-link').style.display = 'block';  // Show "Register here" link
+        return;
+      }
+      if (users[nickname] !== password) {
+        document.getElementById('login-message').textContent = 'Incorrect password. Try again.';
+        document.getElementById('register-link').style.display = 'none';
+        return;
+      }
+      window.location.href = 'home.html'; 
+  </script>
+</body>
+</html>
