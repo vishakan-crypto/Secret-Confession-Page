@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            transition: margin-left 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            transition: margin-left 0.3s;
+        }
+
+        h1, h2, h3 {
+            color: #fff;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .header-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        #rules {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #rules h2, #rules h3 {
+            color: #ff4b2b;
+        }
+
+        #rules ul {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        #rules li {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #rules p {
+            font-size: 18px;
+            color: #2c3e50;
+            font-style: italic;
+        }
+
+        #confession_form {
+    background: url('https://media.istockphoto.com/id/902939954/photo/rose-in-smoke-swirl-on-black.jpg?s=612x612&w=0&k=20&c=aN50DtZxUrnGCdh7Tt7XTkl6Op_wkXotCifVhPNU_88=');
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    width: 150%;               /* stretched wider */
+    max-width: 1100px;         /* limits too wide on large screens */
+    margin: 0 auto;
+    color: #f8e3e3;
+}
+
+
+        #confession_form h2,
+        #confession_form p,
+        #confession_form label,
+        #confession_form small {
+            color: #ffecec;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="email"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 120px;
+        }
+
+        input[type="button"], .btn-confessions {
+            background-color: #f25c5c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        input[type="button"]:hover, .btn-confessions:hover {
+            background-color: #d44c4c;
+        }
+
+        .btn-confessions {
+            background-color: #fbc2eb;
+        }
+
+        .btn-confessions:hover {
+            background-color: #f9b8df;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 15px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            color: white;
+        }
+
+        .footer-section ul {
+            padding-left: 20px;
+        }
+
+        .footer-section li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            margin-top: 20px;
+        }
+
+        .hamburger {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            cursor: pointer;
+            font-size: 28px;
+            color: white;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #2c3e50;
+            color: white;
+            padding-top: 60px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #1a252f;
+        }
+
+        .container.shifted {
+            margin-left: 250px;
+        }
+
+        .sidebar-block {
+            padding: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .sidebar-block h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-block p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hamburger" onclick="toggleSidebar()">☰</div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-block">
+            <h3>Contact Us</h3>
+            <p>If you have any questions or need help, feel free to reach out to us!</p>
+        </div>
+        <div class="sidebar-block">
+            <h3>Report a Confession</h3>
+            <p>If you see a confession that violates the rules, you can report it here.</p>
+        </div>
+        <div class="sidebar-block">
+            <h3>Read Confessions</h3>
+            <p>Browse through all the confessions submitted by others in our community.</p>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent">
+        <img src="https://mentcouch.com/wp-content/uploads/2021/08/confession-page-02-1920x640.png" alt="Confession Header" class="header-image">
+        <section id="rules">
+            <h2>Welcome to the Confession Wall!</h2>
+            <p>We’re glad you’re here. Before you get started, please take a quick look at these important guidelines:</p>
+            <h3>Quick Rules to Keep It Real:</h3>
+            <ul>
+                <li>Keep it personal! Share your truth but no personal details.</li>
+                <li>Respect everyone’s privacy – this is a safe space for all.</li>
+                <li>No room for hate – let’s keep it friendly and positive.</li>
+                <li>Speak from the heart – but avoid offensive language and discrimination.</li>
+                <li>Remember, this is about confessions, not opinions or debates!</li>
+            </ul>
+            <p>Your confession is your own, and we respect that. Keep it kind, keep it real.</p>
+        </section>
+
+        <section id="confession_form">
+            <h2>Submit Your Confession</h2>
+            <p>Ready to confess? Fill in the form below, or feel free to explore other confessions if you're just here to browse.</p>
+            <form>
+                <div class="form-group">
+                    <label for="confession_title">Confession Title</label>
+                    <input type="text" id="confession_title" name="confession_title" required>
+                </div>
+                <div class="form-group">
+                    <label for="confession_category">Confession Category</label>
+                    <select id="confession_category" name="confession_category" required>
+                        <option value="">Select a category</option>
+                        <option value="family">Family</option>
+                        <option value="friends">Friends</option>
+                        <option value="work">Work</option>
+                        <option value="school">School/College</option>
+                        <option value="relationships">Relationships</option>
+                        <option value="personal">Personal</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="confession_text">Confession Description</label>
+                    <small>(At least 15 characters)</small>
+                    <textarea id="confession_text" name="confession_text" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="agree_rules" required>
+                        By submitting, I agree to the <a href="#rules">Submission Rules</a> of the Confession Page.
+                    </label>
+                </div>
+                <input type="button" id="submit_confession" value="Submit Confession">
+                <button type="button" class="btn-confessions" onclick="window.location.href='confessions.html'">Browse Confessions</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>We provide a safe space for people to share their thoughts and feelings anonymously, helping to promote mental health awareness.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: contact@confessionsite.com</p>
+                    <p>Phone: +1 (234) 567-8900</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Mental Health Resources</a></li>
+                        <li><a href="#">Crisis Hotlines</a></li>
+                        <li><a href="#">Professional Help</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Confession Page. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const container = document.getElementById('mainContent');
+            sidebar.classList.toggle('open');
+            container.classList.toggle('shifted');
+        }
+    
+        document.getElementById('submit_confession').addEventListener('click', function () {
+            const title = document.getElementById('confession_title').value;
+            const category = document.getElementById('confession_category').value;
+            const text = document.getElementById('confession_text').value;
+            const agreed = document.querySelector('input[name="agree_rules"]').checked;
+    
+            if (!title || !category || !text || !agreed) {
+                alert('Please fill in all fields and agree to the rules.');
+                return;
+            }
+    
+            if (text.length < 15) {
+                alert('Your confession must be at least 15 characters long.');
+                return;
+            }
+    
+            // Save confession to localStorage
+            const confession = {
+                title,
+                category,
+                text,
+                date: new Date().toISOString()
+            };
+    
+            let confessions = JSON.parse(localStorage.getItem('confessions')) || [];
+            confessions.unshift(confession); // Add new confession to the top
+            localStorage.setItem('confessions', JSON.stringify(confessions));
+    
+            // Redirect to confessions page
+            window.location.href = 'confessions.html';
+        });
+    </script>   
+</body>
+</html>
